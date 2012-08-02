@@ -197,7 +197,7 @@ function FbObj(){
 	};
 
 	this.auth = function(id){
-		if(fb.userList[id] === undefined){
+		if(this.userList[id] === undefined){
 			fb.userList[id] = {};
 		}
 		var user;
