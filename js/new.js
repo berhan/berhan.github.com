@@ -21,11 +21,7 @@ function authGame(){
 	});
 }
 
-function login(){
-	var me;
-	FB.api('/me', function(response) {
-      me = response; 
-    })
+function login(me){
 	player = new Player(me);
 	init();
 }

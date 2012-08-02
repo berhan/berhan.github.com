@@ -38,13 +38,12 @@
           // listen for and handle auth.statusChange events
           FB.Event.subscribe('auth.statusChange', function(response) {
             if (response.authResponse) {
-              login();
               // user has auth'd your app and is logged into Facebook
-              // FB.api('/me', function(me){
-              //   if (me.name) {
-              //     document.getElementById('auth-displayname').innerHTML = me.name;
-              //   }
-              // })
+              FB.api('/me', function(me){
+                if (me) {
+                  login(me);
+                }
+              })
               // document.getElementById('auth-loggedout').style.display = 'none';
               // document.getElementById('auth-loggedin').style.display = 'block';
             } else {
