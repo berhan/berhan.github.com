@@ -25,7 +25,7 @@ function login(){
 	var me;
 	FB.api('/me', function(response) {
       me = response; 
-    });
+    })
 	player = new Player(me);
 	init();
 }
