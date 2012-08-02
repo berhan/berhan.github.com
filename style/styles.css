@@ -18,14 +18,14 @@
 
 #bottle {
 	position: absolute;
-	top: 55px;
-	left: 95px;
+	top: 125px;
+	left: 135px;
 }
 
 #chart{
 	position: absolute;
-	top: 0px;
-	left: 40px;
+	top: 70px;
+	left: 80px;
 }
 
 #authDialog{
@@ -142,18 +142,22 @@
 	height: 50px;
 }
 
-.playerListDiv {
+.sideMenuDiv{
 	top:10px;
-	left:550px;
+	left:470px;
 	position: absolute;
 	width: 280px;
+}
+
+.playerListDiv {
 	height: 300px;
 	overflow: auto;
 }
 
 .playerListTableHeader{
 	color: white;
-	background-color: black;
+	width: 260px;
+	background-color: #dfdfdf;
 	font-family:arial;
 	font-size:20px;
 	font-weight:bold;
@@ -168,10 +172,6 @@
 	height: 300px;
 	overflow: auto;
 }
-/*.playerListTable td {
-	width:200px;
-	height:50px;
-}*/
 
 .playerPictureCell {
 	width: 50px;
@@ -287,10 +287,10 @@
 }
 
 .messageDiv{
-	top:400px;
-	left:550px;
-	position: absolute;
-	width: 250px;
+/*	top:400px;
+	left:470px;
+	position: absolute;*/
+	width: 260px;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
@@ -303,12 +303,13 @@
 	font-family:arial;
 	font-size:20px;
 	font-weight:bold;
+	text-align: center;
 	text-decoration:none;
 	text-shadow:1px 1px 0px #ffffff;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	padding-left: 10px;
-	padding-right: 10px; 
+	/*padding-left: 10px;
+	padding-right: 10px; */
 }
 
 

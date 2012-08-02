@@ -62,14 +62,6 @@ function rotating(){
 	}
 }
 
-// function calculateNewAngle(){
-// 	if(game.clockwise){
-// 		return (game.rotationAngle + game.velocity) % 360;
-// 	}else{
-// 		return angleSubstraction(game.rotationAngle - game.velocity) % 360;
-// 	}
-// }
-
 function stopped(){
 	console.log("stopped");
 	if(game.rotater !== ""){
@@ -94,51 +86,9 @@ function stopped(){
 	setTimeout(startServerStateSync, 1000);
 }
 
-//draws the pie-chart-like area
-// function drawChart(){
-// 	var chartRadius = 260;
-// 	// var centerX = Math.floor(canvas.width / 2) + 120;
-// 	// var centerY = Math.floor(canvas.height / 2);
-// 	var portion = Math.PI*2 / game.getPlayerCount();
-
-// 	for(var i = 0; i < game.getPlayerCount(); i++){
-// 		ctx.save();
-// 		ctx.beginPath();
-// 		ctx.moveTo(centerX, centerY);
-// 		ctx.arc(centerX, centerY, chartRadius, i*portion, (i+1)*portion, false);
-// 		ctx.closePath();
-// 		ctx.fillStyle = colorPalette[i];
-// 		ctx.fill();
-// 		// drawPlayerPhoto(i);
-// 		ctx.restore();
-// 	}			
-// }
-
 function drawChart(){
 	$('body').append('<img id="chart" src="images/chart.png"></img>');
 }
-
-// function drawPlayerPhoto(index){
-// 	var pic = fb.getProfilePicture(game.players[index]);
-// 	// $('body').append('')
-// 	ctx.drawImage(pic, 25, 25, 50, 50);
-// }
-
-// function drawBottle(rotationAngle){
-// 	$('body').append('<img id="bottle" src="images/bottle2.svg">');
-// 	var bottle = $('#bottle')[0];
-// 	var height = 480;
-// 	//var height = 2*arrowSize;
-// 	var width = 2*height/3;
-// 	//ctx.scale(1,-1);
-// 	//ctx.scale(-1,1);
-// 	//ctx.shadowColor = "rgba(80,80,80, 1)";
-// 	//ctx.shadowOffsetX = 5;
-// 	//ctx.shadowOffsetY = 5;
-// 	ctx.drawImage(bottle, -(width/2), -(height/2), width, height);
-// 	//ctx.scale(1,-1);
-// 	//ctx.scale(-1,1);
-// }
 
 function drawBottle(){
 	// $('body').append('<span id="bottle"></span>');
@@ -152,14 +102,6 @@ function rotateBottle(rotationAngle){
 	$('#bottle').rotate(rotationAngle);
 }
 
-// function rotateBottle(rotationAngle){
-// 	ctx.save();
-// 	ctx.translate(centerX, centerY);
-// 	ctx.rotate(Math.PI * rotationAngle / 180);
-// 	//ctx.rotate(-90 * Math.PI / 180);
-// 	drawBottle();
-// 	ctx.restore();
-// }
 
 function angleSubstraction(a1, a2){
 	var res = a1 - a2;
@@ -174,22 +116,24 @@ function angleSubstraction(a1, a2){
 
 function followMouse(){
 	var angle;
-	var total = 0;
-	var startTime = 0;
-	//bottleMouseDown();
+	var total;
+	var startTime;
+	mouseDownAction();
 
+	function mouseDownAction(){
+		$('.bottle').on("mousedown", function(e){
+			//console.log("alfas");
+			angle = ["","",""];
+			angle.pop();
+			angle.unshift(calculateAngle(e.pageX, e.pageY));
+			startTime = getCurrentTime();
+			total = 0;
+			mousemoveAction();
+			mouseupAction();
 
-	$('.bottle').on("mousedown", function(e){
-		console.log("alfas");
-		angle = ["","",""];
-		angle.pop();
-		angle.unshift(calculateAngle(e.pageX, e.pageY));
-		startTime = getCurrentTime();
-		mousemoveAction();
-		mouseupAction();
-
-		return false;
-	});
+			return false; //prevent defaut action of browser
+		});
+	}
 	
 	function mousemoveAction(){
 		$(document).on("mousemove", function(e){
@@ -219,17 +163,16 @@ function followMouse(){
 			if(velocity > envMinSpeed || velocity < (-1 * envMinSpeed)){
 				triggerRotation(velocity, angle[0]);
 			}else{
-				//bottleMouseDown();
-				followMouse();
+				mouseDownAction();
 			}
 			
 		});
 	}
 
 	function calculateAngle(x,y){
-		var position = Math.atan((150-y)/(x-190)) * (180 / Math.PI);
+		var position = Math.atan((220-y)/(x-230)) * (180 / Math.PI);
 		//console.log(position);
-		if((x-190) < 0){
+		if((x-230) < 0){
 			return 270 - position;
 		}else{
 			return 90 - position;
@@ -241,8 +184,8 @@ function followMouse(){
 	}
 
 	function getCurrentTime(){
-		var date = new Date();
-		return date.getMilliseconds() + 1000 * date.getSeconds() + 1000 * 60 * date.getMinutes();
+		var date = new Date(); //to get client side time information
+		return date.getMilliseconds() + 1000 * date.getSeconds() + 1000 * 60 * date.getMinutes(); //from global Date object date
 	}
 
 	
