@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg10"
+   version="1.1"
+   inkscape:version="0.48+devel r10611"
+   width="297"
+   height="450"
+   sodipodi:docname="this-way-up-bottle.jpg">
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs14">
+    <filter
+       inkscape:collect="always"
+       id="filter816"
+       x="-0.07314425"
+       width="1.1462885"
+       y="-0.33388402"
+       height="1.667768">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="5.6729586"
+         id="feGaussianBlur818" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1058"
+     id="namedview12"
+     showgrid="false"
+     inkscape:zoom="1.8644444"
+     inkscape:cx="42.210072"
+     inkscape:cy="231.97259"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <rect
+     style="fill:#000000;stroke:none"
+     id="rect20"
+     width="100"
+     height="234.92253"
+     x="98.5"
+     y="163.5876" />
+  <rect
+     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="rect22"
+     width="100"
+     height="41.299168"
+     x="98.5"
+     y="382.95587"
+     ry="10"
+     rx="20" />
+  <path
+     sodipodi:type="arc"
+     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path24"
+     sodipodi:cx="139.98808"
+     sodipodi:cy="163.85577"
+     sodipodi:rx="48.271751"
+     sodipodi:ry="32.449345"
+     d="m 188.25983,163.85577 a 48.271751,32.449345 0 1 1 -96.543499,0 48.271751,32.449345 0 1 1 96.543499,0 z"
+     transform="matrix(1.0358025,0,0,1,3.4999938,-1.0727056)" />
+  <rect
+     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="rect26"
+     width="38.081047"
+     height="127.65197"
+     x="129.45947"
+     y="18.235994"
+     rx="10"
+     ry="5" />
+  <rect
+     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="rect28"
+     width="41.597069"
+     height="23.283083"
+     x="127.70146"
+     y="26.61371"
+     rx="5"
+     ry="5.0000005" />
+  <path
+     sodipodi:type="arc"
+     style="opacity:0.10000000000000001;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter816)"
+     id="path30"
+     sodipodi:cx="197.91418"
+     sodipodi:cy="403.60547"
+     sodipodi:rx="93.86174"
+     sodipodi:ry="16.358761"
+     d="m 291.77592,403.60547 a 93.86174,16.358761 0 1 1 -187.72348,0 93.86174,16.358761 0 1 1 187.72348,0 z"
+     transform="matrix(0.99129614,-0.13165088,0.13165088,0.99129614,-57.312279,32.786617)" />
+</svg>
