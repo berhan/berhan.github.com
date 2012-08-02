@@ -201,7 +201,7 @@ function FbObj(){
 			this.userList[id] = {};
 		}
 		var user;
-		FB.api('/'+id, function(response){
+		FB.api(id, function(response){
 			user = response;
 		});
 		this.userList[id].name = user.name;
