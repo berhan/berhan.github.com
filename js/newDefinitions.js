@@ -46,11 +46,11 @@ var states = {
 function Server(){
 	this.gameList = {
 		index: [123, 124, 125, 126, 127],
-		g123: {id : "g123", name : "Oyun 1", lastUpdate: 0, state : "readyToRotate", owner: "p123", capacity : 4, players: ["p124", "p125", "p126"], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g124: {id : "g124", name : "Oyun 2", lastUpdate: 0, state : "wfo", owner: "p124", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g125: {id : "g125", name : "Oyun 3", lastUpdate: 0, state : "wfo", owner: "p124", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g126: {id : "g126", name : "Oyun 4", lastUpdate: 0, state : "wfo", owner: "p124", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g127: {id : "g127", name : "Oyun 5", lastUpdate: 0, state : "wfo", owner: "p124", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""}
+		g123: {id : "g123", name : "Oyun 1", lastUpdate: 0, state : "readyToRotate", owner: "530585621", capacity : 4, players: ["550410621", "558707356", "567978009"], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		g124: {id : "g124", name : "Oyun 2", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		g125: {id : "g125", name : "Oyun 3", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		g126: {id : "g126", name : "Oyun 4", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		g127: {id : "g127", name : "Oyun 5", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""}
 	};
 	this.inviteList =  {};
 
@@ -184,40 +184,55 @@ function Server(){
 //virtual, basic facebook integration class
 function FbObj(){
 	this.userList = {
-		p123: {id : "p123", name : "Ali", surname :	"Yilmaz", gender: "male", picture: "images/prf/5.png", friends: ["p124", "p127", "p128", "p129", "p132"]}, 
-		p124: {id : "p124", name : "Veli", surname : "Yilmaz", gender: "male", picture: "images/prf/4.jpg", friends: ["p123", "p126", "p130", "p131"]},
-		p125: {id : "p125", name : "Ayse", surname : "Yilmaz", gender: "female", picture: "images/blank-profile.jpg", friends: ["p126", "p127", "p130", "p131"]},
-		p126: {id : "p126", name : "Fatma", surname : "Yilmaz", gender: "female", picture: "images/blank-profile.jpg", friends: ["p124", "p125", "p128", "p129"]},
-		p127: {id : "p127", name : "Hayriye", surname : "Yilmaz", gender: "female", picture: "images/prf/2.jpg", friends: ["p123", "p125", "p132"]},
-		p128: {id : "p128", name : "Hayri", surname :	"Yilmaz", gender: "male", picture: "images/prf/3.jpg", friends: ["p123", "p126", "p132"]}, 
-		p129: {id : "p129", name : "Kadri", surname : "Yilmaz", gender: "male", picture: "images/blank-profile.jpg", friends: ["p123", "p126", "p130"," p132"]},
-		p130: {id : "p130", name : "Aliye", surname : "Yilmaz", gender: "female", picture: "images/blank-profile.jpg", friends: ["p124", "p125", "p129", "p131"]},
-		p131: {id : "p131", name : "Veliye", surname : "Yilmaz", gender: "female", picture: "images/blank-profile.jpg", friends: ["p124", "p125", "p130"]},
-		p132: {id : "p132", name : "Kadriye", surname : "Yilmaz", gender: "female", picture: "images/prf/1.jpg", friends: ["p123", "p127", "p128", "p129"]}
+		"530585621": {friends: ["550410621", "612239488", "618458068", "696622849", "1203471777"]}, 
+		"550410621": {friends: ["530585621", "567978009", "713738903", "100002514703963"]},
+		"558707356": {friends: ["567978009", "612239488", "713738903", "100002514703963"]},
+		"567978009": {friends: ["550410621", "558707356", "618458068", "696622849"]},
+		"612239488": {friends: ["530585621", "558707356", "1203471777"]},
+		"618458068": {friends: ["530585621", "567978009", "1203471777"]}, 
+		"696622849": {friends: ["530585621", "567978009", "713738903","1203471777"]},
+		"713738903": {friends: ["550410621", "558707356", "696622849", "100002514703963"]},
+		"100002514703963": {friends: ["550410621", "558707356", "713738903"]},
+		"1203471777": {friends: ["530585621", "612239488", "618458068", "696622849"]}
 	};
 
 	this.auth = function(id){
-		if(fb.userList[id] !== undefined){
-			return true;
+		if(fb.userList[id] === undefined){
+			fb.userList[id] = {};
 		}
-		else{
-			return false;
-		}
+		var user;
+		FB.api('/'+id, function(response){
+			user = response;
+		});
+		fb.userList[id].name = user.name;
+		fb.userList[id].picture = 'http://graph.facebook.com/'+user.id+'/picture';
 	}
 
 	this.getName = function(id){
+		if(this.userList[id].name === undefined){
+			this.auth(id);
+		}
 		return this.userList[id].name;
 	}
 
-	this.getSurname = function(id){
-		return this.userList[id].surname;
-	}
+	// this.getSurname = function(id){
+	// 	if(this.userList[id].name === undefined){
+	// 		this.auth(id);
+	// 	}
+	// 	return this.userList[id].surname;
+	// }
 
-	this.getGender = function(id){
-		return this.userList[id].gender;
-	}
+	// this.getGender = function(id){
+	// 	if(this.userList[id].name === undefined){
+	// 		this.auth(id);
+	// 	}
+	// 	return this.userList[id].gender;
+	// }
 
 	this.getProfilePicture = function(id){
+		if(this.userList[id].picture === undefined){
+			this.auth(id);
+		}
 		return this.userList[id].picture;
 	}
 
