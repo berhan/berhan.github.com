@@ -198,14 +198,14 @@ function FbObj(){
 
 	this.auth = function(id){
 		if(this.userList[id] === undefined){
-			fb.userList[id] = {};
+			this.userList[id] = {};
 		}
 		var user;
 		FB.api('/'+id, function(response){
 			user = response;
 		});
-		fb.userList[id].name = user.name;
-		fb.userList[id].picture = 'http://graph.facebook.com/'+user.id+'/picture';
+		this.userList[id].name = user.name;
+		this.userList[id].picture = 'http://graph.facebook.com/'+user.id+'/picture';
 	}
 
 	this.getName = function(id){
