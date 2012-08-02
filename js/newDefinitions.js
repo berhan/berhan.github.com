@@ -274,12 +274,12 @@ function Game(id){
 
 
 //player object class
-function Player(id){
-	this.id = id;
-	this.name = fb.getName(id);
-	this.surname = fb.getSurname(id);
-	this.gender = fb.getGender(id);
-	this.picture = fb.getProfilePicture(id);
+function Player(me){
+	this.id = me.id;
+	this.name = me.name;
+	//this.surname = fb.getSurname(id);
+	this.gender = me.gender;
+	this.picture = 'http://graph.facebook.com/'+this.id+'/picture/';
 
 	this.getId = function(){
 		return this.id;
@@ -296,6 +296,7 @@ function Player(id){
 	this.getGender = function(){
 		return this.gender;
 	}
+
 
 	this.getProfilePicture = function(){
 		return this.picture;

@@ -22,11 +22,11 @@ function authGame(){
 }
 
 function login(){
-	var id;
+	var me;
 	FB.api('/me', function(response) {
-      id = response.id; 
+      me = response.id; 
     });
-	player = new Player(id);
+	player = new Player(me);
 	init();
 }
 
