@@ -38,18 +38,20 @@
           // listen for and handle auth.statusChange events
           FB.Event.subscribe('auth.statusChange', function(response) {
             if (response.authResponse) {
+              login();
               // user has auth'd your app and is logged into Facebook
-              FB.api('/me', function(me){
-                if (me.name) {
-                  document.getElementById('auth-displayname').innerHTML = me.name;
-                }
-              })
-              document.getElementById('auth-loggedout').style.display = 'none';
-              document.getElementById('auth-loggedin').style.display = 'block';
+              // FB.api('/me', function(me){
+              //   if (me.name) {
+              //     document.getElementById('auth-displayname').innerHTML = me.name;
+              //   }
+              // })
+              // document.getElementById('auth-loggedout').style.display = 'none';
+              // document.getElementById('auth-loggedin').style.display = 'block';
             } else {
+              authGame();
               // user has not auth'd your app, or is not logged into Facebook
-              document.getElementById('auth-loggedout').style.display = 'block';
-              document.getElementById('auth-loggedin').style.display = 'none';
+              // document.getElementById('auth-loggedout').style.display = 'block';
+              // document.getElementById('auth-loggedin').style.display = 'none';
             }
           });
 
@@ -62,17 +64,6 @@
           }); 
         } 
       </script>
-
-      <h1>Facebook Client-side Authentication Example</h1>
-        <div id="auth-status">
-          <div id="auth-loggedout">
-            <a href="#" id="auth-loginlink">Login</a>
-          </div>
-          <div id="auth-loggedin" style="display:none">
-            Hi, <span id="auth-displayname"></span>  
-          (<a href="#" id="auth-logoutlink">logout</a>)
-        </div>
-      </div>
     <!--<canvas id="canvas" width="800" height="700"> 
       Your browser does not support the HTML5 Canvas feature. This game uses new HTML5 features and will only work on the latest versions of Firefox, Safari or Chrome (and maybe Internet Explorer 9).         
     </canvas>-->
