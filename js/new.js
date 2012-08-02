@@ -24,7 +24,7 @@ function authGame(){
 function login(){
 	var me;
 	FB.api('/me', function(response) {
-      me = response.id; 
+      me = response; 
     });
 	player = new Player(me);
 	init();
