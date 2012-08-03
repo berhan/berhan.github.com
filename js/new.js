@@ -7,17 +7,17 @@ function authGame(){
 	$('body').append('<div id="authDialog"></div>');
 	$('#authDialog').append('<h1>Sise Cevirmece\'ye Hosgeldin</h1>');
 	$('#authDialog').append('<br>');
-	//$('#authDialog').append('<p>Lutfen id giriniz</p>');
-	//$('#authDialog').append('<input id="authIdInput" type="text"></input>');
+	$('#authDialog').append('<p>Lutfen id giriniz</p>');
+	$('#authDialog').append('<input id="authIdInput" type="text"></input>');
 	$('#authDialog').append('<button id="authGiris">Giris</button>');
-	// $("#authIdInput").keyup(function(event){
-	// 	if(event.keyCode == 13){
-	// 		$("#authGiris").click();
-	// 	}
-	// });
+	$("#authIdInput").keyup(function(event){
+		if(event.keyCode == 13){
+			$("#authGiris").click();
+		}
+	});
 	$('#authGiris').click(function(){
-		//var id = $('#authIdInput').val();
-		FB.login();
+		var id = $('#authIdInput').val();
+		// FB.login();
 	});
 }
 
