@@ -204,14 +204,19 @@ function FbObj(){
 		}
 		console.log('id ' + id);
 		var user = {};
-		FB.api('/'+id, function(response){
-			if(response){
-				user.name = response.name;
-				user.picture = response.picture;
-			}else{
-				console.log("no no no");
-			}
-		})
+
+		try{
+			FB.api('/'+id, function(response){
+				if(response){
+					user = response;
+				}else{
+					console.log("no no no");
+				}
+			});
+		}catch(failed){
+			console.log("failed");
+		}
+
 		this.userList[id].name = user.name;
 		this.userList[id].picture = user.picture;
 		console.log("picture: " +user.name);
