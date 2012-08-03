@@ -207,19 +207,13 @@ function FbObj(){
 
 		try{
 			FB.api('/'+id, function(response){
-				if(response){
-					user = response;
-				}else{
-					console.log("no no no");
-				}
+				this.userList[id].name = response.name;
+				this.userList[id].picture = response.picture;
+				console.log("picture: " +response.picture);
 			});
 		}catch(failed){
 			console.log("failed");
 		}
-
-		this.userList[id].name = user.name;
-		this.userList[id].picture = user.picture;
-		console.log("picture: " +user.name);
 	}
 
 	this.getName = function(id){
