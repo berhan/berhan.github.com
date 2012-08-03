@@ -183,6 +183,8 @@ function Server(){
 
 //virtual, basic facebook integration class
 function FbObj(){
+	// var graphUrl = 'http://graph.facebook.com/';
+
 	this.userList = {
 		"530585621": {friends: ["550410621", "612239488", "618458068", "696622849", "1203471777"]}, 
 		"550410621": {friends: ["530585621", "567978009", "713738903", "100002514703963"]},
@@ -200,12 +202,13 @@ function FbObj(){
 		if(this.userList[id] === undefined){
 			this.userList[id] = {};
 		}
+		console.log('id ' + id);
 		var user;
-		FB.api(id, function(response){
+		FB.api('/'+id, function(response){
 			user = response;
 		});
 		this.userList[id].name = user.name;
-		this.userList[id].picture = 'http://graph.facebook.com/'+user.id+'/picture';
+		this.userList[id].picture = user.picture;
 	}
 
 	this.getName = function(id){
