@@ -212,7 +212,7 @@ function FbObj(){
 				console.log("picture: " +response.picture);
 			});
 		}catch(failed){
-			console.log("failed");
+			console.log(failed);
 		}
 	}
 
