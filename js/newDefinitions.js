@@ -208,6 +208,8 @@ function FbObj(){
 			if(response){
 				user.name = response.name;
 				user.picture = response.picture;
+			}else{
+				console.log("no no no");
 			}
 		})
 		this.userList[id].name = user.name;
