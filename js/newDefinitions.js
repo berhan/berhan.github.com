@@ -210,7 +210,6 @@ function FbObj(){
 				this.userList[id].picture = response.picture;
 				console.log("picture: " +response.picture);
 			});
-			console.log(failed);
 	}
 
 	this.getName = function(id){
