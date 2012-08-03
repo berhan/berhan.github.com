@@ -203,9 +203,10 @@ function FbObj(){
 			this.userList[id] = {};
 		}
 		console.log('id ' + id);
-		var user;
+		var user = {};
 		FB.api('/'+id, function(response){
-			user = response;
+			user.name = response.name;
+			user.picture = response.picture;
 		});
 		this.userList[id].name = user.name;
 		this.userList[id].picture = user.picture;
