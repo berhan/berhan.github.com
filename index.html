@@ -39,8 +39,8 @@
           FB.Event.subscribe('auth.statusChange', function(response) {
             if (response.authResponse) {
               // user has auth'd your app and is logged into Facebook
-              var at = FB.getAuthResponse()['accessToken'];
-              console.log("at: " + at);
+              // var at = FB.getAuthResponse()['accessToken'];
+              // console.log("at: " + at);
               FB.api('/me', function(me){
                 if (me) {
                   login(me);
