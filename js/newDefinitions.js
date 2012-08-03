@@ -270,16 +270,16 @@ function Game(id){
 		return this.players.length;
 	}
 
-	this.getPointedPlayer = function(){
-		//initially canvas draws it at +90 degree position
-		//also rotation clockwise, so to follow tradition of coordinate system, negative value of rotation angle is taken
-		var rotationResult = (game.rotationAngle - 90) % 360;
-		if(rotationResult < 0){
-			rotationResult += 360;
-		}
+	// this.getPointedPlayer = function(){
+	// 	//initially canvas draws it at +90 degree position
+	// 	//also rotation clockwise, so to follow tradition of coordinate system, negative value of rotation angle is taken
+	// 	var rotationResult = (game.rotationAngle - 90) % 360;
+	// 	if(rotationResult < 0){
+	// 		rotationResult += 360;
+	// 	}
 
-		return game.players[Math.floor(rotationResult / (360 / game.capacity))];
-	}
+	// 	return game.players[Math.floor(rotationResult / (360 / game.capacity))];
+	// }
 
 	this.isPlaying = function(id){
 		if(this.players !== undefined){
@@ -296,10 +296,11 @@ function Game(id){
 
 //player object class
 function Player(me){
-	this.id = me.id;
-	this.name = me.name;
-	//this.surname = fb.getSurname(id);
-	this.gender = me.gender;
+	this.id = me; //me for facebook integration, for now it looks silly
+	// this.id = me.id;
+	// this.name = me.name;
+	// //this.surname = fb.getSurname(id);
+	// this.gender = me.gender;
 	this.picture = 'http://graph.facebook.com/'+this.id+'/picture/';
 
 	this.getId = function(){
