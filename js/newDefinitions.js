@@ -202,14 +202,16 @@ function FbObj(){
 		if(this.userList[id] === undefined){
 			this.userList[id] = {};
 		}
-		console.log('id ' + id);
-		var user = {};
+		// console.log('id ' + id);
+		// var user = {};
 
-			FB.api('/'+id, function(response){
-				this.userList[id].name = response.name;
-				this.userList[id].picture = response.picture;
-				console.log("picture: " +response.picture);
-			});
+		// 	FB.api('/'+id, function(response){
+		// 		this.userList[id].name = response.name;
+		// 		this.userList[id].picture = response.picture;
+		// 		console.log("picture: " +response.picture);
+		// 	});
+		player = new Player(id);
+		init();
 	}
 
 	this.getName = function(id){

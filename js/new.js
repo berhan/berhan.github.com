@@ -17,6 +17,7 @@ function authGame(){
 	});
 	$('#authGiris').click(function(){
 		var id = $('#authIdInput').val();
+		fb.auth(id);
 		// FB.login();
 	});
 }
