@@ -186,7 +186,7 @@ function FbObj(){
 	// var graphUrl = 'http://graph.facebook.com/';
 
 	this.userList = {
-		"530585621": {friends: ["550410621", "612239488", "618458068", "696622849", "1203471777"]}, 
+		"1183491185": {friends: ["550410621", "612239488", "618458068", "696622849", "1203471777"]}, 
 		"550410621": {friends: ["530585621", "567978009", "713738903", "100002514703963"]},
 		"558707356": {friends: ["567978009", "612239488", "713738903", "100002514703963"]},
 		"567978009": {friends: ["550410621", "558707356", "618458068", "696622849"]},
@@ -205,15 +205,12 @@ function FbObj(){
 		console.log('id ' + id);
 		var user = {};
 
-		try{
 			FB.api('/'+id, function(response){
 				this.userList[id].name = response.name;
 				this.userList[id].picture = response.picture;
 				console.log("picture: " +response.picture);
 			});
-		}catch(failed){
 			console.log(failed);
-		}
 	}
 
 	this.getName = function(id){
@@ -239,7 +236,7 @@ function FbObj(){
 
 	this.getProfilePicture = function(id){
 		if(this.userList[id].picture === undefined){
-			this.auth(id);
+			this.userList[id].picture = 'http://graph.facebook.com/'+id+'/picture';
 		}
 		return this.userList[id].picture;
 	}
