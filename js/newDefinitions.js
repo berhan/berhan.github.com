@@ -199,9 +199,9 @@ function FbObj(){
 	};
 
 	this.auth = function(id){
-		if(this.userList[id] === undefined){
-			this.userList[id] = {};
-		}
+		// if(this.userList[id] === undefined){
+		// 	this.userList[id] = {};
+		// }
 		// console.log('id ' + id);
 		// var user = {};
 
@@ -211,7 +211,7 @@ function FbObj(){
 		// 		console.log("picture: " +response.picture);
 		// 	});
 		player = new Player(id);
-		init();
+		return true;
 	}
 
 	this.getName = function(id){
