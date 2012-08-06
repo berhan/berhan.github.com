@@ -1,22 +1,9 @@
-function chooseFirstPlayer(){
-	$('body').append('<div id="sideMenu" class=sideMenuDiv></div>');
-	displayPlayerList(".sideMenuDiv");
-		if(player.id === game.owner){
-			game.rotationAngle = Math.random()*360;
-			game.velocity = Math.random()*10 + 20;
-			game.state = "rotating";
-			sendRotationVariables(true);
-		}
-}
-
 function sendRotationVariables(startAnimation){
 	console.log("sended");
 	stopServerStateSync();
-	//game.setState("rotating");
 	server.updateAttr(game.id, "state", game.state);
 	server.updateAttr(game.id, "velocity", game.velocity);
 	server.updateAttr(game.id, "rotationAngle", game.rotationAngle);
-	//server.updateAttr(game.id, "clockwise", game.clockwise);
 	server.updateAttr(game.id, "rotater", game.rotater);
 	server.updateAttr(game.id, "pointed", game.pointed);
 	server.updateAttr(game.id, "type", game.type);
@@ -43,10 +30,10 @@ function rotating(){
 	// }
 	//drawChart();
 	var stopCheck = true;
-	if((game.velocity > 0 && game.velocity > envStopThreshold) || (game.velocity < 0 && game.velocity > -envStopThreshold)){
+	if((game.velocity > 0 && game.velocity > envStopThreshold) || (game.velocity < 0 && game.velocity < -envStopThreshold)){
 			stopCheck = false;
 	}
-	if(stopCheck){
+	if(!stopCheck){
 		drawBottle();
 		rotateBottle(game.rotationAngle);
 		//console.log(game.rotationAngle);
@@ -68,8 +55,7 @@ function stopped(){
 		if(game.rotater === player.id){
 			game.pointed = game.getPointedPlayer();
 			if(game.pointed === player.id){
-				game.setState("readyToRotate");
-				sendRotationVariables(false);
+				displayDialog("pointedYourself");
 			}else{
 				game.setState("selectionOfType");
 				sendRotationVariables(false);
@@ -118,6 +104,8 @@ function followMouse(){
 	var angle;
 	var total;
 	var startTime;
+	//var lastMovementTime = 0;
+	var waitInterval = 0;
 	mouseDownAction();
 
 	function mouseDownAction(){
@@ -137,19 +125,27 @@ function followMouse(){
 	
 	function mousemoveAction(){
 		$(document).on("mousemove", function(e){
-			angle.pop();
-			angle.unshift(calculateAngle(e.pageX, e.pageY));
-			
-		 	rotateBottle(angle[0]);
-		 	if(angle[2] === ""){
-		 		total += angleSubstraction(angle[0], angle[1]);
-		 	}else if((angle[0] < angle[1]) !== (angle[1] < angle[2])){
-		 		total = 0;
-		 		startTime = getCurrentTime();
-		 	}else{
-		 		total += angleSubstraction(angle[0], angle[1]);
-		 		//console.log("entered");
-		 	}
+			clearTimeout(waitInterval);
+			waitInterval = setTimeout(function(){
+				total = 0; 
+				startTime = getCurrentTime();}, 200);
+
+			var mouse = {x:e.pageX, y: e.pageY};
+			if(Math.sqrt(Math.pow(Math.abs(mouse.x - centerX) , 2) + Math.pow(Math.abs(mouse.y - centerY), 2)) > 20){
+				angle.pop();
+				angle.unshift(calculateAngle(mouse.x, mouse.y ));
+			 	rotateBottle(angle[0]);
+			 	if(angle[2] === ""){
+			 		total += angleSubstraction(angle[0], angle[1]);
+			 	}else if((angle[0] < angle[1]) !== (angle[1] < angle[2])){
+			 		total = 0;
+			 		startTime = getCurrentTime();
+			 	}else{
+			 		total += angleSubstraction(angle[0], angle[1]);
+			 		//console.log("entered");
+			 	}
+			}
+			return false;
 		});
 	}
 
@@ -157,22 +153,25 @@ function followMouse(){
 		$(document).on("mouseup", function(){
 			$(document).off("mousemove");
 			$(document).off("mouseup");
+			$('.bottle').off("mousedown");
 			var curTime = getCurrentTime();
 			var velocity = calculateVelocity(curTime);
 			console.log("vel= " + velocity);
 			if(velocity > envMinSpeed || velocity < (-1 * envMinSpeed)){
 				triggerRotation(velocity, angle[0]);
 			}else{
-				mouseDownAction();
+				followMouse();
 			}
 			
 		});
+
+		return false;
 	}
 
 	function calculateAngle(x,y){
-		var position = Math.atan((220-y)/(x-230)) * (180 / Math.PI);
+		var position = Math.atan((centerY-y)/(x-centerX)) * (180 / Math.PI);
 		//console.log(position);
-		if((x-230) < 0){
+		if((x-centerX) < 0){
 			return 270 - position;
 		}else{
 			return 90 - position;
@@ -180,7 +179,16 @@ function followMouse(){
 	}
 
 	function calculateVelocity(stopTime){
-		return 30 * (total / (stopTime - startTime));
+		var realVel = total / (stopTime - startTime);
+		console.log("real: " + realVel);
+		if(realVel < 0.40){
+			return envVelocityCoefficient0 * realVel;
+		}else if(realVel < 1){
+			return envVelocityCoefficient1 * realVel;
+		}else{
+			return envVelocityCoefficient2 * realVel;
+		}
+		
 	}
 
 	function getCurrentTime(){
@@ -195,7 +203,7 @@ function triggerRotation(velocity, rotationAngle){
 	//game.clockwise = isClockwise;
 	game.velocity = velocity;
 	game.rotationAngle = rotationAngle;
-	game.setState("rotating");
+	game.state = "rotating";
 	sendRotationVariables(true);
 }
 
