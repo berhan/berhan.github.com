@@ -1,4 +1,6 @@
 //virtual, basic facebook integration class
+//this is not the real integration. 
+//the functions of this object are representations of what infomation is needed from Facebook Javascript SDK
 function FbObj(){
 	// var graphUrl = 'http://graph.facebook.com/';
 

@@ -6,8 +6,10 @@ var player;
 var serverStateSync = 0; //updateState interval variable
 var animationRefresh = 0; //rotating interval variable
 
-var canvas;
-var ctx;
+var animationRefreshInterval = 32; //after how many milliseconds the view must be updated when animationg rotation
+
+var chartSrc4 = "images/chart.png";
+var bottleSrc = "images/milk.png";
 
 var centerX;
 var centerY;
@@ -21,15 +23,16 @@ var envVelocityCoefficient2 = 200;
 
 
 var mouseMovement = 0;
+var mouseWaitThreshhold = 200; //farenin ne kadar bkeleyebileceği
 
-var colorPalette = ["#DF0101", "#FF8000", "#298A08", "#01A9DB", "#A901DB", "#0404B4", "#86B404", "#FFFF00", "#F5A9F2", "#81F7D8", "#8181F7"]; //will be grown
+//var colorPalette = ["#DF0101", "#FF8000", "#298A08", "#01A9DB", "#A901DB", "#0404B4", "#86B404", "#FFFF00", "#F5A9F2", "#81F7D8", "#8181F7"]; //will be grown
 
 //object which keeps state functions
 var states = {
 	//auth: function(){ auth(); },
 	main: function(){ mainMenu(); },
 	chooseGame: function(){ chooseGame(); },
-	enterGame: function(){ enterGame("g123"); },
+	enterGame: function(){ enterGame("123"); },
 	createGame: function(){ createGame(); },
 	waitingForOthers: function(){ waitForOthers(); },
 	chooseFirstPlayer: function(){ chooseFirstPlayer(); },

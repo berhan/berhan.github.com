@@ -1,3 +1,19 @@
+//functions responsible to rotate bottle
+//visual effects is a very little part, most of it calculations and data transportation with server
+
+//The rotation logic is as follows: 
+//
+//If player is the rotater, she has the mouse control on bottle (see followMouse function)
+//When her mouse down on bottle, movement of mouse over document is tracked and its angle to the center of chart calculated
+//Then bottle rotated to this angle. Total angle mouse traveresed and total time spent on the movement are calculated and
+//multiplied with some constants (see /js/definitions.js) to make it more faster and more fun to play.
+//If at a given point mouse waits for a particular time or mouse reverses turning direction, total angle and time are zeroed.
+//When mouse up, velocity is calculated, rotation triggered and variables are sent to the server. Then when other clients get this
+//initial values, they mimic exact animation at the client side.
+
+
+//provides client to server synchronization through server object (/js/server.js)
+//if startAnimation is true, also starts animationRefresh.
 function sendRotationVariables(startAnimation){
 	console.log("sended");
 	stopServerStateSync();
@@ -14,9 +30,10 @@ function sendRotationVariables(startAnimation){
 	}
 }
 
+//main function of animation. It starts to update view frequently when calculations are made by rotating function (/js/gameplay.js since it is also a state function )
 function startAnimationRefresh(){
 	//game.state = "";
-	animationRefresh = setInterval(function(){ updateView(); }, 32);
+	animationRefresh = setInterval(function(){ updateView(); }, animationRefreshInterval);
 }
 
 function stopAnimationRefresh(){
@@ -24,71 +41,52 @@ function stopAnimationRefresh(){
 	animationRefresh = 0;
 }
 
-function rotating(){
-	// if(serverStateSync !== 0){
-	// 	stopServerStateSync();
-	// }
-	//drawChart();
-	var stopCheck = true;
-	if((game.velocity > 0 && game.velocity > envStopThreshold) || (game.velocity < 0 && game.velocity < -envStopThreshold)){
-			stopCheck = false;
-	}
-	if(!stopCheck){
-		drawBottle();
-		rotateBottle(game.rotationAngle);
-		//console.log(game.rotationAngle);
-		game.rotationAngle += game.velocity;
-		game.velocity *= envFriction;
-	}else{
-		//rotateBottle(game.rotationAngle);
-		stopAnimationRefresh();
-		drawBottle();
-		rotateBottle(game.rotationAngle);
-		//game.setState("stopped");
-		stopped();
-	}
-}
-
+//function determines the state after rotation and starts server side synchronization again
+//If the rotation is the initial random rotation to determine first player, starts the new turn
+//If stopped after a player rotated, goes to "Dare or Truth?" selection according to game flow
 function stopped(){
 	console.log("stopped");
-	if(game.rotater !== ""){
-		if(game.rotater === player.id){
+	if(game.rotater !== ""){				//if a player rotated it or not
+		if(game.rotater === player.id){		//make pointed player calculations on the client side of rotater and send to the server
 			game.pointed = game.getPointedPlayer();
 			if(game.pointed === player.id){
 				displayDialog("pointedYourself");
 			}else{
 				game.setState("selectionOfType");
-				sendRotationVariables(false);
+				sendRotationVariables(false);	//sends the pointed player to the server
 			}
 		}
-	}else if(game.owner === player.id){
-		game.rotater = game.getPointedPlayer();
+	}else if(game.owner === player.id){				//if a player didn't rotated, it means it is initial random rotation
+		game.rotater = game.getPointedPlayer();		//make calculations on the client side of game owner and send to the server
 		console.log(game.getPointedPlayer());
 		game.state = "newTurn";
-		sendRotationVariables(false);
-		//game.setState("newTurn");
+		sendRotationVariables(false);				//sends the rotater player to the server 
 	}
 
-	setTimeout(startServerStateSync, 1000);
+	setTimeout(startServerStateSync, 1000);			//syncronize with server after 1 second
 }
 
+//draws background chart
+//-------NEEDS--------
+//simple image determination for different player countts
+//------/NEEDS--------
 function drawChart(){
-	$('body').append('<img id="chart" src="images/chart.png"></img>');
+	$('body').append('<img id="chart" src='+chartSrc4+'></img>');
 }
 
+//draws bottle according to bottleSrc variable
 function drawBottle(){
 	// $('body').append('<span id="bottle"></span>');
 	// $('#bottle').append('<img src="images/milk.png">');
-	$('body').append('<img class="bottle" id="bottle" src="images/milk.png">');
+	$('body').append('<img class="bottle" id="bottle" src='+bottleSrc+'>');
 }
 
+//shows bottle rotated at given angle. rotate function comes from plugin.
 function rotateBottle(rotationAngle){
-	//$('body').append('<img id="bottle" src="images/milk.png">');
-	//$('#bottle').offset({top:centerY, left:centerX});
 	$('#bottle').rotate(rotationAngle);
 }
 
-
+//solves problems about circularity
 function angleSubstraction(a1, a2){
 	var res = a1 - a2;
 	if(res > 180){
@@ -100,35 +98,35 @@ function angleSubstraction(a1, a2){
 
 }
 
+//function provides mouse control
+//for brief explanation for animation read the beginning of this file
 function followMouse(){
-	var angle;
-	var total;
-	var startTime;
-	//var lastMovementTime = 0;
-	var waitInterval = 0;
+	var angle;		//keeps last three angles of mouse to catch direction changes (see mousemoveAction)
+	var total;		//total angle mouse traversed
+	var startTime;	//time at which mouse started teh movement on a particular direction
+	var waitInterval = 0;	//timeout variable (see setTimeout on the Web and mousemoveAction below)
 	mouseDownAction();
 
 	function mouseDownAction(){
 		$('.bottle').on("mousedown", function(e){
-			//console.log("alfas");
 			angle = ["","",""];
 			angle.pop();
 			angle.unshift(calculateAngle(e.pageX, e.pageY));
 			startTime = getCurrentTime();
 			total = 0;
-			mousemoveAction();
-			mouseupAction();
+			mousemoveAction();		//starts tracking mouse movement
+			mouseupAction();		//wait for mouse up
 
-			return false; //prevent defaut action of browser
+			return false; //prevents defaut action of browser
 		});
 	}
 	
 	function mousemoveAction(){
 		$(document).on("mousemove", function(e){
-			clearTimeout(waitInterval);
-			waitInterval = setTimeout(function(){
+			clearTimeout(waitInterval);					//clears interval every mouse movement
+			waitInterval = setTimeout(function(){		//then starts again the count down
 				total = 0; 
-				startTime = getCurrentTime();}, 200);
+				startTime = getCurrentTime();}, mouseWaitThreshhold);
 
 			var mouse = {x:e.pageX, y: e.pageY};
 			if(Math.sqrt(Math.pow(Math.abs(mouse.x - centerX) , 2) + Math.pow(Math.abs(mouse.y - centerY), 2)) > 20){
@@ -145,7 +143,7 @@ function followMouse(){
 			 		//console.log("entered");
 			 	}
 			}
-			return false;
+			return false; //prevents defaut action of browser
 		});
 	}
 
@@ -165,7 +163,7 @@ function followMouse(){
 			
 		});
 
-		return false;
+		return false; //prevents defaut action of browser
 	}
 
 	function calculateAngle(x,y){

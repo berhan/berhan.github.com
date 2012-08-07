@@ -1,12 +1,14 @@
 //server object class
+//this is a prototype and includes some extra functions to simulate server
+//ajax request can be written here
 function Server(){
 	this.gameList = {
 		index: [123, 124, 125, 126, 127],
-		g123: {id : "g123", name : "Oyun 1", lastUpdate: 0, state : "readyToRotate", owner: "1183491185", capacity : 4, players: ["550410621", "558707356", "567978009"], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g124: {id : "g124", name : "Oyun 2", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g125: {id : "g125", name : "Oyun 3", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g126: {id : "g126", name : "Oyun 4", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
-		g127: {id : "g127", name : "Oyun 5", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""}
+		"123": {name : "Oyun 1", lastUpdate: 0, state : "readyToRotate", owner: "1183491185", capacity : 4, players: ["550410621", "558707356", "567978009"], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		"124": {name : "Oyun 2", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		"125": {name : "Oyun 3", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		"126": {name : "Oyun 4", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 8, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""},
+		"127": {name : "Oyun 5", lastUpdate: 0, state : "wfo", owner: "550410621", capacity : 6, players: [], rotationAngle: 0, velocity: 3, rotater:"" , pointed: ""}
 	};
 	this.inviteList =  {};
 
@@ -26,6 +28,7 @@ function Server(){
 		return newId;
 	}
 
+	//adds a player to a game.
 	this.addPlayer = function(gameId, playerId){
 		if(this.getPlayerCount(gameId) < this.gameList[gameId].capacity){
 			this.gameList[gameId].players.push(playerId);
@@ -37,6 +40,7 @@ function Server(){
 		}
 	}
 
+	//removes a player from a game.
 	this.removePlayer = function(gameId, playerId){
 		var oldArr = this.gameList[gameId].players;
 		var newArr = [];
@@ -48,6 +52,8 @@ function Server(){
 		this.gameList[gameId].players = newArr;
 	}
 
+	//create an invitation in the JSON form. 
+	//Object's name is the gameId, invited players is its fields and the the values of this fields are the inviters
 	this.addInvitation = function(invitedId, inviterId, gameId) {
 		if(this.inviteList[gameId] === undefined){
 			this.inviteList[gameId] = {};
@@ -55,6 +61,7 @@ function Server(){
 		this.inviteList[gameId][invitedId] = inviterId;
 	}
 
+	//checks whether a player invited to a particular game according to above model
 	this.isInvited = function(invitedId, gameId){
 		if(this.gameList[gameId] !== undefined && this.inviteList[gameId] !== undefined){
 			if(this.inviteList[gameId][invitedId] !== undefined){
@@ -76,6 +83,7 @@ function Server(){
 		}
 	}
 
+	//remove an invitation from the list
 	this.removeInvitation = function(invitedId,gameId){
 		delete this.inviteList[gameId][invitedId];
 		if(this.inviteList[gameId] === undefined){
@@ -89,10 +97,12 @@ function Server(){
 		this.updated(gameId);
 	}
 
+	//returns the last update time of the game whose id is given
 	this.getLastUpdate = function(gameId){
 		return this.gameList[gameId].lastUpdate;
 	}
 
+	//returns the state of the game whose id is given
 	this.getState = function(id){
 		if(id === undefined || id === ""){
 			return ""; //no game
@@ -102,37 +112,39 @@ function Server(){
 		//return this.state;
 	}
 
+	//returns the name of the game whose id is given
 	this.getName = function(id){
 		return this.gameList[id].name;
 	}
 
+	//returns the player count of the game whose id is given
 	this.getPlayerCount = function(id){
 		return this.gameList[id].players.length;
 	}
 
+	//returns an array which keeps every game id, name, capacity and how many people are playing
+	//used when showing game list to enter
 	this.getGameList = function(id){
 		var gameListArr = [];
 		for (var g in this.gameList) {
 		    if (this.gameList.hasOwnProperty(g) && g !== "index" ){
-		    	gameListArr.push(g);
-		        gameListArr.push(this.gameList[g].name);
-		        gameListArr.push(this.gameList[g].capacity);
-		        gameListArr.push(this.getPlayerCount(g));
+		    	gameListArr.push(g);							//id
+		        gameListArr.push(this.gameList[g].name);		//name
+		        gameListArr.push(this.gameList[g].capacity);	//capacity
+		        gameListArr.push(this.getPlayerCount(g));		//player count
 		    }
 		}
 		return gameListArr;
 	}
 
+	//returns the rotation angle of the game whose id is given
 	this.getRotationAngle = function(id){
 		return this.gameList[id].rotationAngle;
 	}
 
+	//returns the velocity of bottle of the game whose id is given
 	this.getVelocity = function(id){
 		return this.gameList[id].velocity;
-	}
-
-	this.getFriction = function(){
-		return Math.random()* 0.001 + 0.008;
 	}
 
 }
