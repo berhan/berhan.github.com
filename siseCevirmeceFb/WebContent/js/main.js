@@ -1,7 +1,7 @@
 $(document).ready( function () {
-	//fb = new FbObj();
-	//authGame();	
-	jsontest();
+	fb = new FbObj();
+	authGame();	
+	//jsontest();
 });
 
 function jsontest(){
@@ -153,27 +153,16 @@ function mainMenu(){
 
 
 function chooseGame(){
+	$('#handler').on("gameListGet", function(event){
+		console.log("ee");
+		chooseGameTable(event.list);
+	});
 	//clearPage();
 	backToMainMenuButton();
-	var gameList = server.getGameList();
-	for(var i=2; i<gameList.length; i+=4){
-		var cap = gameList[i] - gameList[i+1]; //capacity - playerslist.length
-		if(cap === 0 )
-			gameList[i] = "Dolu";
-		else
-			gameList[i] = cap;
-	}
-	var typeArray = ['gameIdCell', 'gameListButton', 'gameCapacityStatus', 'capacityIndicator'];
-	// var headerArray = ['Acik Oyunlar', 'Durum', 'Oyuncu Sayısı'];
-	//createTable('gamesList', 'gamesListTable',headerArray, 3, 4, gamesList, typeArray);
-	createTable('body','gamesListTable', 'gamesListTable', 4, gameList.length/4, gameList, typeArray);
+	server.getGameList();
 
-	$('.gameListButton, .gameCapacityStatus, .capacityIndicator').click(function(){
-			var gameId = this.parentNode.firstChild.innerHTML; //get game id from hidden column
-			enterGame(gameId);
-			console.log(gameId);
-	});
 }
+
 
 function createGame(){
 	$('body').append('<div id="createGameForm"></div>');

@@ -1,0 +1,523 @@
+#area{
+	width: 800px;
+	height: 700px;
+	border: 0px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	background-image:url(../images/pattern_130.gif);
+}
+
+#canvas {
+	border:1px solid #dcdcdc;;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	background-image:url(../images/pattern_130.gif);
+}
+
+#bottle {
+	position: absolute;
+	top: 125px;
+	left: 135px;
+}
+
+#chart{
+	position: absolute;
+	top: 70px;
+	left: 80px;
+}
+
+#authDialog{
+	position: absolute;
+	top: 100px;
+	left: 210px;
+}
+
+#createGameForm{
+	position: absolute;
+	top: 100px;
+	left: 210px;	
+}
+
+.mainMenuButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:30px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 250px;
+	height: 150px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	position: absolute;
+	
+}.mainMenuButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+/*-----main menu buttons-----*/
+#startNow {
+  top:150px;
+  left:100px;
+}
+
+#createGame {
+  top:150px;
+  left:450px;
+}
+
+#chooseGame {
+  top:400px;
+  left:100px;
+}
+
+#howToPlay {
+  top:400px;
+  left:450px;
+}
+.gamesListTable{
+	top:100px;
+	left:140px;
+	position: absolute;
+}
+
+.gameIdCell{
+	display: none;
+}
+
+.gameListButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	/*display:inline-block;*/
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	/*vertical-align: middle;*/
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	/*position: absolute;*/
+}.gameListButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+.gameCapacityStatus {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	/*display:inline-block;*/
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 100px;
+	height: 50px;
+	text-align: center;
+	/*vertical-align: middle;*/
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	/*position: absolute;*/
+}.gameCapacityStatus:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+.capacityIndicator{
+		-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	/*display:inline-block;*/
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	/*vertical-align: middle;*/
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	/*position: absolute;*/
+}.capacityIndicator:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+
+
+.sideMenuDiv{
+	top:10px;
+	left:470px;
+	position: absolute;
+	width: 280px;
+}
+
+.playerListDiv {
+	height: 300px;
+	overflow: auto;
+}
+
+.playerListTableHeader{
+	color: white;
+	width: 260px;
+	background-color: #dfdfdf;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+
+}
+
+.inviteListDiv{
+/*	top:320px;
+	left:550px;
+	position: absolute;*/
+	width: 280px;
+	height: 300px;
+	overflow: auto;
+}
+
+.playerPictureCell {
+	width: 50px;
+	height: 50px;
+	display:inline-block;
+}
+
+.playerIdCell{
+	display: none;
+}
+
+.playerNameCell {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	/*display:inline-block;*/
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 200px;
+	height: 50px;
+	z-index: 500;
+	text-align: left;
+	/*vertical-align: middle;*/
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	/*position: absolute;*/
+}
+.playerNameCell:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+.playerInviteCell{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	/*display:inline-block;*/
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 200px;
+	height: 50px;
+	z-index: 500;
+	text-align: left;
+	/*vertical-align: middle;*/
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	/*position: absolute;*/
+}
+.playerInviteCell:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+.inviteButton{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:12px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 80px;
+	height: 30px;
+	z-index: 1000;
+	position: absolute;
+	right: 30px;
+	text-align: center;
+	/*vertical-align: middle;*/
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+}
+.inviteButton:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+.messageDiv{
+/*	top:400px;
+	left:470px;
+	position: absolute;*/
+	width: 260px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	text-align: center;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	/*padding-left: 10px;
+	padding-right: 10px; */
+}
+
+
+.dialogBackground{
+	z-index:100000;
+	position: absolute; 
+    top: 8px; 
+    left: 8px; 
+    width: 761px; 
+    height: 801px;
+ 	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+    background-color: black; 
+    opacity:0.5; 
+
+    /*filter: alpha(opacity=10); */
+}
+
+.dialogContainer{
+	z-index:100001;
+	position: absolute;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color: #dcdcdc;
+	/*opacity:1.0;*/
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px; 
+	/*top: 200px;*/
+	max-width: 350px;
+	/*left: 100px;*/
+}
+
+.dialogMessage{
+	display:inline-block;
+	color:#777777;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	font-family:arial;
+	font-size:40px;
+	font-weight:bold;
+	text-align: center;
+	text-shadow:1px 1px 0px #ffffff;
+}
+
+.dialogText{
+	display:inline-block;
+	color:#777777;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	text-align: center;
+	text-shadow:1px 1px 0px #ffffff;
+}
+
+#decideActionBox{
+	display: inline-block;
+	width: 100%;
+	height: 75px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	color:#777777;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+}
+
+.dialogButton{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 100px;
+	height: 30px;
+	margin-right: 10px;
+	margin-right: 10px;
+	text-align: center;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	/*position: absolute;*/
+}
+.dialogButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+#backToMainMenu{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:20px;
+	font-weight:bold;
+	/*padding:100px 100px;*/
+	width: 120px;
+	height: 40px;
+	text-align: center;
+	/*vertical-align: middle;*/
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+#backToMainMenu:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+#changePlayer{
+	position: absolute;
+	top:20px;
+	left: 820px;
+}
+
