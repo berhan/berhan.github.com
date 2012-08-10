@@ -29,7 +29,7 @@ function authGame(){
 	// 	}
 	// 	// FB.login();
 	// });
-	var id = "1183491185";
+	var id = 1183491185;
 	if(fb.auth(id)){
 		init();
 	}
@@ -86,7 +86,7 @@ function exitGame(){
 
 function startServerStateSync(){
 	//game.state = "";
-	serverStateSync = setInterval(function(){ updateState(); }, 700);
+	serverStateSync = setInterval(function(){ updateState(); }, serverRefreshInterval);
 }
 
 function stopServerStateSync(){
@@ -96,30 +96,29 @@ function stopServerStateSync(){
 
 //updates state of the game to the value in the server
 function updateState(){
-	var id = game.id;
-	var oldState = game.state;
-	if(serverStateSync != 0 && game.lastUpdate < server.getLastUpdate(id)){
-		if(game.syncGameFields()){
-			//game.setState(server.getState(id));
-			console.log(game.state);
-			updateView();
-		}
+	if(serverStateSync != 0){
+		$('#event-handler').on("gameUpdate", function(response){
+			if(response.isChanged){
+				console.log(game.state);
+				updateView();
+			}
+			$('#event-handler').off("gameUpdate");
+		});
+		game.syncGameFields();
 	}
 }
 
 function updateView(){
 	clearView();
 	//console.log(player.id);
-	if(game.state !== "rotating"){
-		player.change(game.players);
-	}
 	states[game.state]();
 }
 
 function clearView(){
 	if(game.state !== "rotating"){
 		//$('body > :not(#canvas)').remove();
-		$('body > :not(#area)').remove();
+		//$('body > :not(#area)').remove();
+		$('#game-area').empty();
 	}else{
 		$('#bottle').remove();
 	}
@@ -129,10 +128,10 @@ function clearView(){
 function mainMenu(){
 	game = new Game("");
 	
-	$('body').append('<button id="startNow" class="mainMenuButton">Hemen Basla</button>');
-	$('body').append('<button id="createGame" class="mainMenuButton">Oyun Baslat</button>');
-	$('body').append('<button id="chooseGame" class="mainMenuButton">Oyun Sec</button>');
-	$('body').append('<button id="howToPlay" class="mainMenuButton">Nasıl Oynanır?</button>');
+	$('#game-area').append('<button id="startNow" class="mainMenuButton">Hemen Basla</button>');
+	$('#game-area').append('<button id="createGame" class="mainMenuButton">Oyun Baslat</button>');
+	$('#game-area').append('<button id="chooseGame" class="mainMenuButton">Oyun Sec</button>');
+	$('#game-area').append('<button id="howToPlay" class="mainMenuButton">Nasıl Oynanır?</button>');
 
 	$('#startNow').click(function(){
 		game.setState("enterGame");
@@ -153,8 +152,7 @@ function mainMenu(){
 
 
 function chooseGame(){
-	$('#handler').on("gameListGet", function(event){
-		console.log("ee");
+	$('#event-handler').on("gameListGet", function(event){
 		chooseGameTable(event.list);
 	});
 	//clearPage();
@@ -165,11 +163,10 @@ function chooseGame(){
 
 
 function createGame(){
-	$('body').append('<div id="createGameForm"></div>');
+	$('#game-area').append('<div id="createGameForm"></div>');
 	$('#createGameForm').append('<h1>Yeni oyun baslat</h1>');
 	$('#createGameForm').append('Oyun adi: <input id="newGameName"/>');
 	$('#createGameForm').append('<br>');
-	//var selectHtml = '<select id="newGamePlayerCount">'
 	$('#createGameForm').append('Kac kisiyle oynamak istersin:<select id="newGameCapacity"></select>');
 	for(var i=1; i<9; i++){
 		$('#newGameCapacity').append('<option value="'+i+'">'+i+'</option>');
@@ -182,8 +179,15 @@ function createGame(){
 	});
 
 	function createGameOnServer(gameName, gameCapacity){
-		game.id = server.addGame(gameName, gameCapacity, player.id);
-		startServerStateSync();
+		server.addGame(gameName, gameCapacity, player.id);
+		$('#event-handler').on("createGame", function(response){
+			game.id = response.id;
+			console.log("new game id: " + game.id);
+			startServerStateSync();
+			
+			$('#event-handler').off("createGame");
+		});
+		
 	}
 }
 

@@ -9,10 +9,10 @@ function Game(id){
 	this.players;		//array of player's ids.
 	this.rotationAngle;	//which angle that bottle points. This variable is also used to share starting point of rotation to other players.
 	this.velocity;		//how many angles the bottle passes per refresh
-	this.rotater;		//id of the player who's the rotater of that particular turn.
+	this.rotator;		//id of the player who's the rotator of that particular turn.
 	this.pointed;		//id of the player who's pointerd in that particular turn.
 	this.type;			//"gercek" or "cesaret"
-	this.action;		//action or question of rotater
+	this.action;		//action or question of rotator
 	this.answer;		//answer of pointed player
 	
 	//construction of the game object
@@ -28,20 +28,36 @@ function Game(id){
 		this.players = [];
 		this.rotationAngle = 0;
 		this.velocity = 0;
-		this.rotater = "";
+		this.rotator = "";
 		this.pointed = "";
 	}
 
-	//syncs game fields according to server's values.
+	//synchronizes game fields according to server's values.
 	this.syncGameFields = function(){
 		var isChanged = false;
-		for (var field in server.gameList[this.id]) {
-			if (server.gameList[this.id].hasOwnProperty(field)) {
-				this[field] = server.gameList[this.id][field];
-				isChanged = true;
+		$('#event-handler').on("getGame", function(response){
+			console.log("sync to this game: " + response.game);
+			serverSideGame =  response.game;
+			if(serverSideGame.lastUpdate > game.lastUpdate){
+				for (var field in serverSideGame) {
+					if (serverSideGame.hasOwnProperty(field)) {
+						if(game[field] != serverSideGame[field]){
+							game[field] = serverSideGame[field]; //scope changed here. Now, "this" refers to the "event-handler", so use "game" variable
+							isChanged = true;
+						}					
+					}
+				}
 			}
-		}
-		return isChanged;
+			
+			$('#event-handler').trigger({
+				type: "gameUpdate",
+				isChanged: isChanged
+			});
+			
+			$('#event-handler').off("getGame");
+		});
+		server.getGame(this.id);
+
 	}
 
 	//sets states and updates player view. This function is used when client doesn't synced with server, such as traversing menus.

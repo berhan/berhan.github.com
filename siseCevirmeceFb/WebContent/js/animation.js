@@ -3,7 +3,7 @@
 
 //The rotation logic is as follows: 
 //
-//If player is the rotater, she has the mouse control on bottle (see followMouse function)
+//If player is the rotator, she has the mouse control on bottle (see followMouse function)
 //When her mouse down on bottle, movement of mouse over document is tracked and its angle to the center of chart calculated
 //Then bottle rotated to this angle. Total angle mouse traveresed and total time spent on the movement are calculated and
 //multiplied with some constants (see /js/definitions.js) to make it more faster and more fun to play.
@@ -20,7 +20,7 @@ function sendRotationVariables(startAnimation){
 	server.updateAttr(game.id, "state", game.state);
 	server.updateAttr(game.id, "velocity", game.velocity);
 	server.updateAttr(game.id, "rotationAngle", game.rotationAngle);
-	server.updateAttr(game.id, "rotater", game.rotater);
+	server.updateAttr(game.id, "rotator", game.rotator);
 	server.updateAttr(game.id, "pointed", game.pointed);
 	server.updateAttr(game.id, "type", game.type);
 	server.updateAttr(game.id, "action", game.action);
@@ -46,8 +46,8 @@ function stopAnimationRefresh(){
 //If stopped after a player rotated, goes to "Dare or Truth?" selection according to game flow
 function stopped(){
 	console.log("stopped");
-	if(game.rotater !== ""){				//if a player rotated it or not
-		if(game.rotater === player.id){		//make pointed player calculations on the client side of rotater and send to the server
+	if(game.rotator !== ""){				//if a player rotated it or not
+		if(game.rotator === player.id){		//make pointed player calculations on the client side of rotator and send to the server
 			game.pointed = game.getPointedPlayer();
 			if(game.pointed === player.id){
 				displayDialog("pointedYourself");
@@ -57,10 +57,10 @@ function stopped(){
 			}
 		}
 	}else if(game.owner === player.id){				//if a player didn't rotated, it means it is initial random rotation
-		game.rotater = game.getPointedPlayer();		//make calculations on the client side of game owner and send to the server
+		game.rotator = game.getPointedPlayer();		//make calculations on the client side of game owner and send to the server
 		console.log(game.getPointedPlayer());
 		game.state = "newTurn";
-		sendRotationVariables(false);				//sends the rotater player to the server 
+		sendRotationVariables(false);				//sends the rotator player to the server 
 	}
 
 	setTimeout(startServerStateSync, 1000);			//syncronize with server after 1 second
@@ -71,14 +71,14 @@ function stopped(){
 //simple image determination for different player countts
 //------/NEEDS--------
 function drawChart(){
-	$('body').append('<img id="chart" src='+chartSrc4+'></img>');
+	$('#game-area').append('<img id="chart" src='+chartSrc4+'></img>');
 }
 
 //draws bottle according to bottleSrc variable
 function drawBottle(){
-	// $('body').append('<span id="bottle"></span>');
+	// $('#game-area').append('<span id="bottle"></span>');
 	// $('#bottle').append('<img src="images/milk.png">');
-	$('body').append('<img class="bottle" id="bottle" src='+bottleSrc+'>');
+	$('#game-area').append('<img class="bottle" id="bottle" src='+bottleSrc+'>');
 }
 
 //shows bottle rotated at given angle. rotate function comes from plugin.

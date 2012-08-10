@@ -3,7 +3,7 @@
 //through game, this objects are shown. drawing bottle doesn't mean controlling it, followMouse from /js/animation.js provides it
 //and it is called just from readyToRotate from /js/gameplay.js
 function displayGameArea(){
-	$('body').append('<div id="sideMenu" class=sideMenuDiv></div>');
+	$('#game-area').append('<div id="sideMenu" class=sideMenuDiv></div>');
 	displayPlayerList(".sideMenuDiv");
 	drawChart();
 	drawBottle();
@@ -14,7 +14,7 @@ function displayGameArea(){
 //displays "Ana Menu" button. If the player is in a game, it asks for confirmation to leave game and return to the main menu.
 //to modify confirmation dialog and its actions see displayDialog
 function backToMainMenuButton(){
-	$('body').append('<button id="backToMainMenu">Ana Menu</button>');
+	$('#game-area').append('<button id="backToMainMenu">Ana Menu</button>');
 	$('#backToMainMenu').click(function (){
 		if(game.id !== ""){
 			displayDialog("exitGame");
@@ -37,7 +37,7 @@ function chooseGameTable(gameList){
 	var typeArray = ['gameIdCell', 'gameListButton', 'gameCapacityStatus', 'capacityIndicator'];
 	// var headerArray = ['Acik Oyunlar', 'Durum', 'Oyuncu Sayısı'];
 	//createTable('gamesList', 'gamesListTable',headerArray, 3, 4, gamesList, typeArray);
-	createTable('body','gamesListTable', 'gamesListTable', 4, gameList.length/4, gameList, typeArray);
+	createTable('#game-area','gamesListTable', 'gamesListTable', 4, gameList.length/4, gameList, typeArray);
 
 	$('.gameListButton, .gameCapacityStatus, .capacityIndicator').click(function(){
 			var gameId = this.parentNode.firstChild.innerHTML; //get game id from hidden column
@@ -45,6 +45,8 @@ function chooseGameTable(gameList){
 			console.log(gameId);
 	});
 }
+
+
 //creates a table with given rows and columns and appends it to the appendObject.
 //data is just an array and represented in this way: [row1col1, row1col2, row2col1, row2col2 ... ]
 //tableId and tableClass are attributes of <table> tag.
@@ -118,8 +120,8 @@ function displayMessage(appendObject, messsage){
 function displayDialog(type){
 	var height = 600;
 	var width = 760;
-	$('body').append('<div class="dialogBackground"></div>');
-	$('body').append('<div class="dialogContainer"></div>');
+	$('#game-area').append('<div class="dialogBackground"></div>');
+	$('#game-area').append('<div class="dialogContainer"></div>');
 
 	if(type === "exitGame"){
 		$('.dialogContainer').append('<p class="dialogMessage">Cikmak istedigine emin misin?</p>');
@@ -175,9 +177,9 @@ function displayDialog(type){
 
 	}else if(type === "takeAction"){
 		if(game.type === "gercek"){
-			$('.dialogContainer').append('<p class="dialogMessage">'+fb.getName(game.rotater)+' sana bunu sordu:</p>');
+			$('.dialogContainer').append('<p class="dialogMessage">'+fb.getName(game.rotator)+' sana bunu sordu:</p>');
 		}else{
-			$('.dialogContainer').append('<p class="dialogMessage">'+fb.getName(game.rotater)+' senden bunu istedi:</p>');
+			$('.dialogContainer').append('<p class="dialogMessage">'+fb.getName(game.rotator)+' senden bunu istedi:</p>');
 		}
 		$('.dialogContainer').append('<br>');
 		$('.dialogContainer').append('<p class="dialogText">'+game.action+'</p>');
@@ -233,7 +235,7 @@ function displayDialog(type){
 		$('.dialogContainer').append('<br>');
 		$('.dialogContainer').append('<button id="dialogYes" class="dialogButton">Devam</button>');
 			$('#dialogYes').click(function(){
-			game.rotater = game.pointed;
+			game.rotator = game.pointed;
 			game.setState("newTurn");
 			sendRotationVariables(false);
 		});	
@@ -248,7 +250,7 @@ function displayDialog(type){
 		$('.dialogContainer').append('<br>');
 		$('.dialogContainer').append('<button id="dialogYes" class="dialogButton">Devam</button>');
 		$('#dialogYes').click(function(){
-			game.rotater = game.pointed;
+			game.rotator = game.pointed;
 			game.setState("newTurn");
 			sendRotationVariables(false);
 		});

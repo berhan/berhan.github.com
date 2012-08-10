@@ -15,17 +15,17 @@ function waitForOthers(){
 	backToMainMenuButton();
 	drawChart();
 	drawBottle();
-	$('body').append('<div id="sideMenu" class=sideMenuDiv></div>');
+	$('#game-area').append('<div id="sideMenu" class=sideMenuDiv></div>');
 	displayPlayerList(".sideMenuDiv");
 
-	//if game full, don't show invitation list and wait for owner to start the game.
+	//if game is full, don't show invitation list and wait for owner to start the game.
 	if(game.getPlayerCount() < game.capacity){ 
 		displayInviteList(".sideMenuDiv");
 	}else if(player.id === game.owner){
 		$('.sideMenuDiv').append('<div id="inviteDiv" class="inviteListDiv"></div>');
 		$('#inviteDiv').append('<button id="startGameButton">Oyunu Baslat</div>');
 		$('#startGameButton').click(function(){
-			server.updateAttr(game.id, "state", "chooseFirstPlayer");  //updating server state is enough because ever player must be sync with server so after a few milliseconds, all of their states will be updated.
+			server.updateAttr(game.id, "state", "chooseFirstPlayer");  //updating server state is enough because every player must be sync with server so after a few milliseconds, all of their states will be updated.
 		});
 	}else{
 		$('.sideMenuDiv').append('<div id="inviteDiv" class="inviteListDiv"></div>'); //other players than owner see this message. It can be stylized giving an id to <p> tag and add rules in the CSS file.
@@ -42,7 +42,9 @@ function waitForOthers(){
 		
 		var playerListData = [];
 		for (var ply in friendList){
-			if((server.isInvited(friendList[ply], game.id) === 0) && !game.isPlaying(friendList[ply])) {
+			server.isInvited(friendList[ply], game.id);
+			//if(!game.isPlaying(friendList[ply]) && (server.isInvited(friendList[ply], game.id) === 0)) {
+			if(!game.isPlaying(friendList[ply])) {
 				playerListData.push(friendList[ply]);				//friend's Facebook id. It is hidden by CSS.
 				playerListData.push(fb.getProfilePicture(friendList[ply]));
 				playerListData.push(fb.getName(friendList[ply]));
@@ -72,15 +74,17 @@ function waitForOthers(){
 
 		//sends invitation to the server. The integration with web service can be configured from the server object (/js/server.js). 
 		function inviteFriend(friendId){
-			if(server.isInvited(friendId, game.id) === 0){
-				server.addInvitation(friendId, player.id, game.id);
-				//------------REMOVE-------------
-				server.addPlayer(game.id, friendId); //this line is for simulation.
-				//-----------/REMOVE-------------
-				return true;
-			}else{
-				return false;
-			}
+//			if(server.isInvited(friendId, game.id) === 0){
+//				server.addInvitation(friendId, player.id, game.id);
+//				//------------REMOVE-------------
+//				server.addPlayerToGame(game.id, friendId); //this line is for simulation.
+//				//-----------/REMOVE-------------
+//				return true;
+//			}else{
+//				return false;
+//			}
+			server.addPlayerToGame(game.id, friendId);
+			return true;
 		}
 	}
 }
@@ -97,17 +101,17 @@ function chooseFirstPlayer(){
 		}
 }
 
-//the rotater player has the right to rotate bottle, others just wait
+//the rotator player has the right to rotate bottle, others just wait
 function newTurn(){
 	game.pointed = "";
-	if(player.id === game.rotater){
+	if(player.id === game.rotator){
 		readyToRotate();
 	}else{
-		waitForRotater();
+		waitForrotator();
 	}
 }
 
-//view of the rotater player. It has followMouse function which allows to control the bottle.
+//view of the rotator player. It has followMouse function which allows to control the bottle.
 function readyToRotate(){
 	displayGameArea();
 	console.log("readyToRotate");
@@ -118,10 +122,10 @@ function readyToRotate(){
 	followMouse();
 }
 
-//view of all players but rotater. A message is shown to notify them about game flow.
-function waitForRotater(){
+//view of all players but rotator. A message is shown to notify them about game flow.
+function waitForrotator(){
 	displayGameArea();
-	displayMessage(".sideMenuDiv", nameWithSuffix(fb.getName(game.rotater)) + " cevirmesi bekleniyor");
+	displayMessage(".sideMenuDiv", nameWithSuffix(fb.getName(game.rotator)) + " cevirmesi bekleniyor");
 }
 
 //state in which rotation animation is happening. It makes calculations rotates bottle according to them every time view updated by starAnimationRefresh(/js/animation.js)
@@ -156,22 +160,22 @@ function selectionOfType(){
 	}
 }
 
-//state in which the question or the action is decided by the rotater player. Rotater sees the diaog while others see appropriate messages.
+//state in which the question or the action is decided by the rotator player. rotator sees the diaog while others see appropriate messages.
 function decideAction(){
 	displayGameArea();
-	if(player.id === game.rotater){
+	if(player.id === game.rotator){
 		displayDialog("decideAction");
 	}else if(player.id === game.pointed){
 		if(game.type === "gercek"){
-			displayMessage(".sideMenuDiv", '"Gercek"i sectin. Bakalım '+fb.getName(game.rotater)+' sana ne soracak...');
+			displayMessage(".sideMenuDiv", '"Gercek"i sectin. Bakalım '+fb.getName(game.rotator)+' sana ne soracak...');
 		}else{
-			displayMessage(".sideMenuDiv", '"Cesaret"i sectin. Bakalım '+fb.getName(game.rotater)+' senden ne isteyecek...');
+			displayMessage(".sideMenuDiv", '"Cesaret"i sectin. Bakalım '+fb.getName(game.rotator)+' senden ne isteyecek...');
 		}
 	}else{
 		if(game.type === "gercek"){
-			displayMessage(".sideMenuDiv", fb.getName(game.pointed)+'"Gercek"i secti. Bakalım '+fb.getName(game.rotater)+' ne soracak...');
+			displayMessage(".sideMenuDiv", fb.getName(game.pointed)+'"Gercek"i secti. Bakalım '+fb.getName(game.rotator)+' ne soracak...');
 		}else{
-			displayMessage(".sideMenuDiv", fb.getName(game.pointed)+'"Cesaret"i secti. Bakalım '+fb.getName(game.rotater)+' ne isteyecek...');
+			displayMessage(".sideMenuDiv", fb.getName(game.pointed)+'"Cesaret"i secti. Bakalım '+fb.getName(game.rotator)+' ne isteyecek...');
 		}
 	}
 }
@@ -183,39 +187,39 @@ function takeAction(){
 		displayDialog("takeAction");
 	}else{
 		if(game.type === "gercek"){
-			displayMessage(".sideMenuDiv", fb.getName(game.pointed) + ', '+ nameWithSuffix(fb.getName(game.rotater)) + ' ' + game.action + ' sorusuna ne kadar dürüst cevap verecek?');
+			displayMessage(".sideMenuDiv", fb.getName(game.pointed) + ', '+ nameWithSuffix(fb.getName(game.rotator)) + ' ' + game.action + ' sorusuna ne kadar dürüst cevap verecek?');
 		}else{
-			displayMessage(".sideMenuDiv", fb.getName(game.pointed) + ', '+ nameWithSuffix(fb.getName(game.rotater)) + ' ' + game.action+' isteğini gerceklestirebilecek mi?');
+			displayMessage(".sideMenuDiv", fb.getName(game.pointed) + ', '+ nameWithSuffix(fb.getName(game.rotator)) + ' ' + game.action+' isteğini gerceklestirebilecek mi?');
 		}
 	}
 }
 
-//state in which rotater evaluate the answer or action. Others also see the answer.
+//state in which rotator evaluate the answer or action. Others also see the answer.
 function evaluateAction(){
 	displayGameArea();
-	if(player.id === game.rotater){
+	if(player.id === game.rotator){
 		displayDialog("evaluateAction");
 	}else if(player.id === game.pointed){
 		if(game.type === "gercek"){
-			displayMessage(".sideMenuDiv", fb.getName(game.rotater)+', "'+game.answer+'" cevabına ne diyecek?');
+			displayMessage(".sideMenuDiv", fb.getName(game.rotator)+', "'+game.answer+'" cevabına ne diyecek?');
 		}else{
 			if(game.answer === undefined){
-				displayMessage(".sideMenuDiv", fb.getName(game.rotater)+', onay verecek mi?');
+				displayMessage(".sideMenuDiv", fb.getName(game.rotator)+', onay verecek mi?');
 			}
 		}
 		
 	}else{
 		if(game.type === "gercek"){
-			displayMessage(".sideMenuDiv", fb.getName(game.pointed)+', "'+game.answer+'" dedi. ' + fb.getName(game.rotater) + ' onaylayacak mı?');
+			displayMessage(".sideMenuDiv", fb.getName(game.pointed)+', "'+game.answer+'" dedi. ' + fb.getName(game.rotator) + ' onaylayacak mı?');
 		}else{
 			if(game.answer === undefined){
-				displayMessage(".sideMenuDiv", fb.getName(game.rotater)+', onay verecek mi?');
+				displayMessage(".sideMenuDiv", fb.getName(game.rotator)+', onay verecek mi?');
 			}
 		}
 	}
 }
 
-//the state if rotater approves the answer or question.
+//the state if rotator approves the answer or question.
 function successEnd(){
 	displayGameArea();
 	if(player.id === game.pointed){
@@ -225,7 +229,7 @@ function successEnd(){
 	}
 }
 
-//the state if rotater rejects the answer or question. Also if pointed player refuses to answer or take action, game turns this state.
+//the state if rotator rejects the answer or question. Also if pointed player refuses to answer or take action, game turns this state.
 function failureEnd(){
 	displayGameArea();
 	if(player.id === game.pointed){

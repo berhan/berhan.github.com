@@ -7,6 +7,7 @@ var serverStateSync = 0; //updateState interval variable
 var animationRefresh = 0; //rotating interval variable
 
 var animationRefreshInterval = 32; //after how many milliseconds the view must be updated when animationg rotation
+var serverRefreshInterval = 1000;
 
 var chartSrc4 = "images/chart.png";
 var bottleSrc = "images/milk.png";
@@ -21,15 +22,13 @@ var envVelocityCoefficient0 = 100;
 var envVelocityCoefficient1 = 80;
 var envVelocityCoefficient2 = 200;
 
+var game_capacity_limit = 8;
 
 var mouseMovement = 0;
-var mouseWaitThreshhold = 200; //farenin ne kadar bkeleyebileceği
-
-//var colorPalette = ["#DF0101", "#FF8000", "#298A08", "#01A9DB", "#A901DB", "#0404B4", "#86B404", "#FFFF00", "#F5A9F2", "#81F7D8", "#8181F7"]; //will be grown
+var mouseWaitThreshhold = 200; //how long the mouse can wait on a point
 
 //object which keeps state functions
 var states = {
-	//auth: function(){ auth(); },
 	main: function(){ mainMenu(); },
 	chooseGame: function(){ chooseGame(); },
 	enterGame: function(){ enterGame("123"); },

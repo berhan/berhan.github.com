@@ -1,20 +1,17 @@
 //virtual, basic facebook integration class
 //this is not the real integration. 
-//the functions of this object are representations of what infomation is needed from Facebook Javascript SDK
+//the functions of this object are representations of what information is needed from Facebook Javascript SDK
 function FbObj(){
 	// var graphUrl = 'http://graph.facebook.com/';
 
 	this.userList = {
-		"1183491185": {"name": "Berhan \u015eenyazar", friends: ["550410621", "558707356", "618458068", "696622849", "567978009"]}, 
-		"550410621": {"name": "Caner Erdi Y\u0131ld\u0131r\u0131m", friends: ["1183491185", "567978009", "713738903", "100002514703963"]},
-		"558707356": {"name": "Nezihe Pehlivan", friends: ["567978009", "612239488", "713738903", "100002514703963"]},
-		"567978009": {"name": "Elif \u00d6nder", friends: ["550410621", "558707356", "618458068", "696622849"]},
-		"612239488": {"name": "Gizem \u00d6zdemir", friends: ["1183491185", "558707356", "1203471777"]},
-		"618458068": {"name": "Mehmet Can Ya\u015far", friends: ["1183491185", "567978009", "1203471777"]}, 
-		"696622849": {"name": "Yener Albo\u011fa", friends: ["1183491185", "567978009", "713738903","1203471777"]},
-		"713738903": {"name": "Ahmet Erdem", friends: ["550410621", "558707356", "696622849", "100002514703963"]},
-		"100002514703963": {"name": "Alper \u00c7etiner", friends: ["550410621", "558707356", "713738903"]},
-		"1203471777": {"name": "Fahrettin \u015eamil Uysal", friends: ["1183491185", "612239488", "618458068", "696622849"]}
+		"1183491185": {"name": "Berhan", surname: "\u015eenyazar", friends: ["550410621", "618458068", "713738903", "514703963"]}, 
+		"550410621": {"name": "Caner Erdi", surname: "Y\u0131ld\u0131r\u0131m", friends: ["1183491185","1203471777","713738903"]},
+		"618458068": {"name": "Mehmet Can", surname: "Ya\u015far", friends: ["1183491185", "696622849", "514703963"]}, 
+		"696622849": {"name": "Yener", surname: "Albo\u011fa", friends: ["618458068", "713738903", "1203471777"]},
+		"713738903": {"name": "Ahmet", surname: "Erdem", friends: ["1183491185", "550410621", "696622849", "514703963", "1203471777"]},
+		"514703963": {"name": "Alper", surname: "\u00c7etiner", friends: ["1183491185", "618458068", "713738903"]},
+		"1203471777": {"name": "Fahrettin \u015eamil", surname: "Uysal", friends: ["550410621", "696622849", "713738903"]}
 	};
 
 	this.auth = function(id){
